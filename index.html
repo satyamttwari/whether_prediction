@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Prediction</title>
+    <style>
+        body {
+            font-family: "Lucida Console", "Courier New", monospace;
+            background-color: #f0f0f0;
+            text-align: center;
+            margin: 50px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background-color: #4caf50;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        h2 {
+            margin-top: 20px;
+            color: #333;
+        }
+
+        p {
+            color: #555;
+        }
+
+        .suitable {
+            color: #009900;
+        }
+
+        .not-suitable {
+            color: #ff0000;
+        }
+
+        .error {
+            color: #ff0000;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Weather Prediction</h1>
+    <form action="/index" method="post">
+        <label for="region">Region:</label>
+        <input type="text" id="region" name="region" required><br>
+        <label for="temperature">Temperature (Celsius):</label>
+        <input type="number" id="temperature" name="temperature" required><br>
+        <label for="humidity">Humidity (%):</label>
+        <input type="number" id="humidity" name="humidity" required><br>
+        <input type="submit" value="Predict">
+        <p><a href="http://127.0.0.1:5000/">Home Page </a></p>
+    </form>
+   
+
+    {% if prediction_result %}
+        {% if prediction_result['error'] %}
+            <p class="error">{{ prediction_result['error'] }}</p>
+        {% else %}
+            <h2>Prediction Result:</h2>
+            <p>Predicted Weather Condition: {{ prediction_result['prediction'] }}</p>
+            {% if prediction_result['is_suitable'] %}
+                <p class="suitable">The weather is suitable for outdoor activities!</p>
+            {% else %}
+                <p class="not-suitable">The weather is not suitable for outdoor activities.</p>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+</body>
+</html>
